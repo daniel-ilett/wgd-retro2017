@@ -24,15 +24,18 @@ public class PaletteSwap : MonoBehaviour
 
 	public void SwapColours(Color[] colours)
 	{
-		if (colours.Length != 4)
+		if (colours.Length != 8)
 			return;
 
-		Matrix4x4 mat = new Matrix4x4();
+		Matrix4x4[] mats = new Matrix4x4[2];
+
+		mats[0] = new Matrix4x4();
+		mats[1] = new Matrix4x4();
 
 		for (int i = 0; i < colours.Length; ++i)
-			mat.SetRow(i, colours[i]);
-
-		material.SetMatrix("_ColorMatrix", mat);
+			mats[i / 4].SetRow(i % 4, ColorToVec(colours[i]));
+		
+		material.SetMatrixArray("_ColorMatrix", mats);
 	}
 
 	private static Vector4 ColorToVec(Color col)

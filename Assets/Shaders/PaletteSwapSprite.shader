@@ -33,7 +33,7 @@
 			};
 
 			sampler2D _MainTex;
-			half4x4 _ColorMatrix;
+			float4x4 _ColorMatrix[2];
 			
 			v2f vert (appdata v)
 			{
@@ -47,7 +47,8 @@
 			{
 				// Sample the matrix at a point determined by the texture.
 				fixed4 x = tex2D(_MainTex, i.uv);
-				return fixed4(_ColorMatrix[x.r * 3].rgb, x.a);
+				float y = x.r * 2;
+				return fixed4((_ColorMatrix[y])[(y % 1) * 4].rgb, x.a);
 			}
 			ENDCG
 		}
