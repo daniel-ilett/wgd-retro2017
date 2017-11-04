@@ -1,4 +1,4 @@
-﻿Shader "Hidden/PaletteSwap"
+﻿Shader "Mine/Grayscale"
 {
 	Properties
 	{
@@ -6,7 +6,11 @@
 	}
 	SubShader
 	{
-		Cull Off ZWrite Off ZTest Always
+		Tags { "Queue" = "Transparent" "RenderType" = "Transparent" }
+		LOD 100
+
+		ZWrite Off
+		Blend SrcAlpha OneMinusSrcAlpha
 
 		Pass
 		{
@@ -28,6 +32,9 @@
 				float4 vertex : SV_POSITION;
 			};
 
+			sampler2D _MainTex;
+			half4x4 _ColorMatrix;
+			
 			v2f vert (appdata v)
 			{
 				v2f o;
@@ -36,15 +43,13 @@
 				return o;
 			}
 			
-			sampler2D _MainTex;
-			half4x4 _ColMatrix;
-
 			fixed4 frag (v2f i) : SV_Target
 			{
-				fixed x = tex2D(_MainTex, i.uv).r;
-				return _ColMatrix[x * 3];
+				// Perform greyscale transformation.
+				half4 col = tex2D(_MainTex, i.uv);
+				col.rgb = dot(col.rgb, float3(0.3, 0.59, 0.11));
+				return col;
 			}
-
 			ENDCG
 		}
 	}
