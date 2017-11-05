@@ -14,12 +14,18 @@ public class PaletteSwap : MonoBehaviour
 	private void Start()
 	{
 		renderer = GetComponent<SpriteRenderer>();
-		material = new Material(Shader.Find("Hidden/PaletteSwapSprite"));
+		//material = new Material(Shader.Find("Hidden/PaletteSwapSprite"));
+		material = new Material(Shader.Find("Hidden/Ghost"));
 
 		material.SetTexture("_MainTex", renderer.sprite.texture);
 		renderer.material = material;
 
-		SwapColours(colours);
+		//SwapColours(colours);
+	}
+
+	private void Update()
+	{
+		transform.position += new Vector3(0.0f, Time.deltaTime, 0.0f);
 	}
 
 	public void SwapColours(Color[] colours)
