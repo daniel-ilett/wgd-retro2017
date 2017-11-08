@@ -32,14 +32,16 @@
 				float4 vertex : SV_POSITION;
 			};
 
-			sampler2D _MainTex;
+			uniform sampler2D _MainTex;
+			uniform float _GhostTime;
+			uniform float _GhostFade;
 			
 			v2f vert (appdata v)
 			{
 				v2f o;
 
 				o.vertex = v.vertex;
-				o.vertex.x = v.vertex.x + sin(v.uv.y * 250 + _Time * 125) / 2;
+				o.vertex.x = v.vertex.x + sin(v.uv.y * 250 + _GhostTime * 5.0f) / 2;
 
 				o.vertex = UnityObjectToClipPos(o.vertex);
 				o.uv = v.uv;
@@ -49,7 +51,7 @@
 			fixed4 frag (v2f i) : SV_Target
 			{
 				fixed4 col = tex2D(_MainTex, i.uv);
-				return col;
+				return fixed4(0.0f, col.g / 2.0f, col.b, col.a / 2.0f * _GhostFade);
 			}
 			ENDCG
 		}

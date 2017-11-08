@@ -5,11 +5,18 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class CameraController : MonoBehaviour
 {
-	[SerializeField]
-	private Transform target;
+	private Camera camera;
 
-	private void Update()
+	public static CameraController cam;
+
+	private void Start()
 	{
+		cam = this;
+		camera = GetComponent<Camera>();
+	}
 
+	public Camera GetCamera()
+	{
+		return camera;
 	}
 }
