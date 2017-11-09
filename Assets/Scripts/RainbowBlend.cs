@@ -17,24 +17,16 @@ public class RainbowBlend : MonoBehaviour
 		renderer = GetComponent<Renderer>();
 
 		mat.SetFloat("_BlendAmount", 0.25f);
-		mat.SetTexture("_MainTex", renderer.material.mainTexture);
 
 		Material[] materials = renderer.materials;
 
 		Material[] moreMaterials = new Material[materials.Length + 1];
 
 		for(int i = 0; i < materials.Length; ++i)
-		{
 			moreMaterials[i] = materials[i];
-		}
 
 		moreMaterials[materials.Length] = mat;
 
 		renderer.materials = moreMaterials;
-	}
-
-	private void OnRenderImage(RenderTexture src, RenderTexture dst)
-	{
-		Graphics.Blit(src, dst, mat);
 	}
 }

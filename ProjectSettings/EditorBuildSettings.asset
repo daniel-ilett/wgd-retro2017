@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/sc_PlayerCustomise.unity
     guid: 77779ec3c7824ba42b94629e36fb8644
+  - enabled: 1
+    path: Assets/Scenes/sc_Town.unity
+    guid: a22947508bb91894b974ffab7a6eddf4

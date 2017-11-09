@@ -48,7 +48,9 @@
 				// Sample the matrix at a point determined by the texture.
 				fixed4 x = tex2D(_MainTex, i.uv);
 				float y = x.r * 2;
-				return fixed4((_ColorMatrix[y])[(y % 1) * 4].rgb, x.a);
+				fixed4 result = fixed4((_ColorMatrix[y])[(y % 1) * 4].rgb, x.a);
+
+				return result;
 			}
 			ENDCG
 		}

@@ -32,6 +32,18 @@ public class PaletteSwap : MonoBehaviour
 		SwapColours();
 	}
 
+	public Color[] GetColours()
+	{
+		return colours;
+	}
+
+	public void SetColours(Color[] colours)
+	{
+		this.colours = colours;
+
+		SwapColours();
+	}
+
 	public void SwapColours()
 	{
 		if (colours.Length != 8)

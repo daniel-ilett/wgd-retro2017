@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 95420649650246328}
   - component: {fileID: 114718298218695932}
   - component: {fileID: 50540387048827266}
+  - component: {fileID: 61543524920563726}
   m_Layer: 0
   m_Name: obj_Player
   m_TagString: Untagged
@@ -85,7 +86,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1823409358012740}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 4.1016574, y: -2.23296, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4995977367948710}
@@ -161,6 +162,31 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!61 &61543524920563726
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1823409358012740}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1.5}
+    newSize: {x: 1, y: 1.5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.5}
+  m_EdgeRadius: 0
 --- !u!81 &81009291554857910
 AudioListener:
   m_ObjectHideFlags: 1
@@ -217,8 +243,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d2f1697434486c44beb2886b313d287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swapper: {fileID: 114596657615634088}
   cameraPos: {fileID: 4995977367948710}
   ghost: {fileID: 114942419506177054, guid: ba4ff3ea70f2d2f41acc41d4ae099704, type: 2}
+  redFadeShader: {fileID: 4800000, guid: cf6baf619539cd44a9b6f66b6a54b4dc, type: 3}
 --- !u!114 &114803027587857680
 MonoBehaviour:
   m_ObjectHideFlags: 1
