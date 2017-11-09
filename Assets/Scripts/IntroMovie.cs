@@ -2,15 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IntroMovie : MonoBehaviour {
+[RequireComponent(typeof(Renderer))]
+public class IntroMovie : MonoBehaviour
+{
+	private new Renderer renderer;
 
-	// Use this for initialization
-	void Start () {
-		
+	private void Start()
+	{
+		renderer = GetComponent<Renderer>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	private void Update()
+	{
+		if (Input.GetButtonDown("Jump"))
+		{
+			MovieTexture movie = (MovieTexture)renderer.material.mainTexture;
+
+			if (movie.isPlaying)
+			{
+				movie.Pause();
+			}
+			else
+			{
+				movie.Play();
+			}
+		}
 	}
 }
