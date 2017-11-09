@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4293960843024722}
   - component: {fileID: 33412507992626588}
-  - component: {fileID: 64965380810733974}
   - component: {fileID: 23977420079102594}
+  - component: {fileID: 114613082407942766}
   m_Layer: 0
   m_Name: obj_BackgroundQuad
   m_TagString: Untagged
@@ -83,17 +83,14 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1265762404643694}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!64 &64965380810733974
-MeshCollider:
+--- !u!114 &114613082407942766
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1265762404643694}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32ef2ff9ec7a28848ad349cc544aa0c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -8,21 +8,31 @@ public class PaletteSwap : MonoBehaviour
 	[SerializeField]
 	private Color[] colours;
 
+	[SerializeField]
+	private Shader shader;
+
 	private Material material;
 	private new SpriteRenderer renderer;
 
 	private void Start()
 	{
 		renderer = GetComponent<SpriteRenderer>();
-		material = new Material(Shader.Find("Hidden/PaletteSwapSprite"));
+		material = new Material(shader);
 
 		material.SetTexture("_MainTex", renderer.sprite.texture);
 		renderer.material = material;
 
-		SwapColours(colours);
+		SwapColours();
 	}
 
-	public void SwapColours(Color[] colours)
+	public void SetColour(int index, Color col)
+	{
+		colours[index] = col;
+
+		SwapColours();
+	}
+
+	public void SwapColours()
 	{
 		if (colours.Length != 8)
 			return;

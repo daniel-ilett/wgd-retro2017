@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class CameraController : MonoBehaviour
 {
-	private Camera camera;
+	private new Camera camera;
 
 	public static CameraController cam;
 

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Ghost : MonoBehaviour
 {
+	[SerializeField]
+	private Shader shader;
+
 	private float ghostTime = 0.0f;
 
 	private Material material;
@@ -12,7 +15,7 @@ public class Ghost : MonoBehaviour
 	private void Awake()
 	{
 		renderer = GetComponent<SpriteRenderer>();
-		material = new Material(Shader.Find("Hidden/Ghost"));
+		material = new Material(shader);
 		renderer.material = material;
 	}
 

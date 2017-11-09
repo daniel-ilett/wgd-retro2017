@@ -205,6 +205,7 @@ MonoBehaviour:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0.2647059, g: 0.15946783, b: 0.0467128, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
+  shader: {fileID: 4800000, guid: 259a7b399d2bb2241ae106101d57cd80, type: 3}
 --- !u!114 &114718298218695932
 MonoBehaviour:
   m_ObjectHideFlags: 1

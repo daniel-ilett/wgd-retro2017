@@ -11,6 +11,7 @@ Shader "PurgeTheCityDX/WaveBackground"
 		_ColorB("Wave Colour B", Color) = (0, 0, 0, 1)
 		_Frequency("Wave Frequency", Range(1, 50)) = 5
 		_Size("Wave Size", Range(1, 100)) = 50
+		_Speed("Wave Speed", Range(1, 10)) = 5
 	}
 	SubShader
 	{
@@ -22,8 +23,6 @@ Shader "PurgeTheCityDX/WaveBackground"
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
-			// make fog work
-			#pragma multi_compile_fog
 			
 			#include "UnityCG.cginc"
 
@@ -45,6 +44,7 @@ Shader "PurgeTheCityDX/WaveBackground"
 			uniform fixed4 _ColorB;
 			uniform int _Frequency;
 			uniform float _Size;
+			uniform float _Speed;
 			
 			v2f vert (appdata v)
 			{
@@ -58,7 +58,7 @@ Shader "PurgeTheCityDX/WaveBackground"
 			
 			fixed4 frag (v2f i) : SV_Target
 			{
-				float s = (i.screenPos.y + sin((_Time + i.screenPos.x) * _Size) * (_Size / 2.0f) / _ScreenParams.y);
+				float s = (i.screenPos.y + sin((_Time * (_Speed / 5) + i.screenPos.x) * _Size) * (_Size / 2.0f) / _ScreenParams.y);
 
 				s = s + 1;
 
