@@ -6,15 +6,39 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class Enemy : MonoBehaviour
 {
+	[SerializeField]
+	private Material rainbowBlendMaterial;
+
 	private float moveSpeed = 2.5f;
 
-	private new Animator animator;
+	private bool isSuper = false;
+
+	private Animator animator;
 	private new Rigidbody2D rigidbody;
+	private new SpriteRenderer renderer;
 
 	private void Start()
 	{
-		rigidbody = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
+		rigidbody = GetComponent<Rigidbody2D>();
+		renderer = GetComponent<SpriteRenderer>();
+
+		if((Random.value + Random.value) / 2.0f > 0.9f)
+		{
+			isSuper = true;
+
+			// Add a rainbow blend material to the materials list.
+			Material[] materials = renderer.materials;
+			Material[] moreMaterials = new Material[materials.Length + 1];
+
+			for (int i = 0; i < materials.Length; ++i)
+				moreMaterials[i] = materials[i];
+
+			moreMaterials[materials.Length] = rainbowBlendMaterial;
+			rainbowBlendMaterial.SetFloat("_BlendAmount", 0.5f);
+
+			renderer.materials = moreMaterials;
+		}
 	}
 
 	public void Update()

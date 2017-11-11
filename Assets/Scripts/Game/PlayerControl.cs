@@ -20,10 +20,8 @@ public class PlayerControl : MonoBehaviour
 	private Ghost ghost;
 
 	[SerializeField]
-	private Shader redFadeShader;
-
-	private Material redMat;
-	private float redBlend = 0.0f;
+	private Material hitFadeMaterial;
+	private float hitFalloff = 0.0f;
 
 	private Vector3 targetPos = Vector3.zero;
 
@@ -46,22 +44,16 @@ public class PlayerControl : MonoBehaviour
 		rigidbody = GetComponent<Rigidbody2D>();
 		renderer = GetComponent<SpriteRenderer>();
 
-		/*
 		// Add the red-fade material to the materials list.
-		redMat = new Material(redFadeShader);
 		Material[] materials = renderer.materials;
 		Material[] moreMaterials = new Material[materials.Length + 1];
 
 		for (int i = 0; i < materials.Length; ++i)
 			moreMaterials[i] = materials[i];
 
-		moreMaterials[materials.Length] = redMat;
+		moreMaterials[materials.Length] = hitFadeMaterial;
 
 		renderer.materials = moreMaterials;
-
-		for (int i = 0; i < moreMaterials.Length; ++i)
-			Debug.Log(moreMaterials[i]);
-		*/
 
 		// Load colours.
 		Load();
@@ -133,14 +125,14 @@ public class PlayerControl : MonoBehaviour
 			// Modify camera position.
 			targetPos = diff.normalized * 2.5f;
 
-			/*
 			// Modify red amount.
-			redBlend = Mathf.Lerp(redBlend, 0.0f, Time.deltaTime * 2.5f);
+			hitFalloff = Mathf.Lerp(hitFalloff, 0.0f, Time.deltaTime * 2.5f);
 
 			//redMat.SetTexture("_MainTex", renderer.material.mainTexture);
-			redMat.SetFloat("_BlendAmount", redBlend);
-			*/
+			hitFadeMaterial.SetFloat("_BlendAmount", hitFalloff);
 		}
+
+		Debug.Log(hitFalloff);
 
 		if (Input.GetButtonDown("Fire1"))
 			GetHit(1);
@@ -149,7 +141,7 @@ public class PlayerControl : MonoBehaviour
 	public void GetHit(int damage)
 	{
 		health -= damage;
-		redBlend = 1.0f;
+		hitFalloff = 1.0f;
 	}
 
 	private void Die()

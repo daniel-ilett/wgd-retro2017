@@ -5,12 +5,18 @@ Shader "PurgeTheCityDX/RainbowBlend"
 {
 	Properties
 	{
-		_MainTex ("Texture", 2D) = "white" {}
 		_BlendAmount("Blend %", Range(0, 1)) = 0
 	}
 	SubShader
 	{
 		Tags { "RenderType" = "Transparent" "Queue" = "Transparent" }
+
+		// GrabPass gets whatever pixels are already in the image just before 
+		// this render pass.
+		GrabPass
+		{
+			"_BackgroundTexture"
+		}
 
 		ZWrite Off
 		Blend SrcAlpha OneMinusSrcAlpha
@@ -34,6 +40,7 @@ Shader "PurgeTheCityDX/RainbowBlend"
 				float2 uv : TEXCOORD0;
 				float4 vertex : SV_POSITION;
 				float2 screenPos : TEXCOORD1;
+				float4 grabPos : TEXCOORD2;
 			};
 
 			v2f vert (appdata v)
@@ -42,11 +49,14 @@ Shader "PurgeTheCityDX/RainbowBlend"
 				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.uv = v.uv;
 				o.screenPos = ComputeScreenPos(o.vertex);
+				o.grabPos = ComputeGrabScreenPos(o.vertex);
 				return o;
 			}
 			
-			uniform sampler2D _MainTex;
 			uniform float _BlendAmount;
+
+			// The portion of the image already drawn.
+			uniform sampler2D _BackgroundTexture;
 
 			// Following functions define RGB<->HSV colour space transformations.
 			float Epsilon = 1e-10;
@@ -90,14 +100,18 @@ Shader "PurgeTheCityDX/RainbowBlend"
 			// Blend each pixel with a hue based on position.
 			fixed4 frag (v2f i) : SV_Target
 			{
-				fixed4 col = tex2D(_MainTex, i.uv);
+				// Sample the previous render pass.
+				fixed4 oldPixels = tex2D(_BackgroundTexture, i.grabPos);
+
+				//float2 ps = i.screenPos.xy * _ScreenParams.xy / i.screenPos.w;
 
 				float param = _Time * 10.0f + i.screenPos.x + i.screenPos.y / 2.0f;
 
-				float4 rainbow = fixed4(HUEtoRGB(param % 1.0f), col.a);
-				fixed4 result =  rainbow * _BlendAmount + col * (1 - _BlendAmount);
+				float4 rainbow = fixed4(HUEtoRGB(param % 1.0f), oldPixels.a);
+				fixed4 result =  rainbow * _BlendAmount + oldPixels * (1 - _BlendAmount);
 
 				//result.a = 1.0f;
+
 
 				//result = fixed4(col.a, col.a, col.a, 1.0f);
 

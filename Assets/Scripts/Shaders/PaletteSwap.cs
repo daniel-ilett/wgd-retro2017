@@ -16,10 +16,11 @@ public class PaletteSwap : MonoBehaviour
 
 	private void Start()
 	{
+		// The Palette Swap shader always takes the first material slot.
 		renderer = GetComponent<SpriteRenderer>();
 		material = new Material(shader);
 
-		material.SetTexture("_MainTex", renderer.sprite.texture);
+		//material.SetTexture("_MainTex", renderer.sprite.texture);
 		renderer.material = material;
 
 		SwapColours();
