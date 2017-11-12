@@ -80,8 +80,8 @@ public class PlayerControl : MonoBehaviour
 
 	private void Update()
 	{
-		cameraPos.localPosition = Vector3.Lerp(cameraPos.localPosition, 
-			targetPos, Time.deltaTime * 5.0f);
+		//cameraPos.localPosition = Vector3.Lerp(cameraPos.localPosition, 
+			//targetPos, Time.deltaTime * 5.0f);
 
 		if(!isDead)
 		{
@@ -124,7 +124,7 @@ public class PlayerControl : MonoBehaviour
 
 			// Modify camera position.
 			//targetPos = diff.normalized * 2.5f;
-			targetPos = transform.position;
+			//targetPos = transform.position;
 
 			// Modify red amount.
 			hitFalloff = Mathf.Lerp(hitFalloff, 0.0f, Time.deltaTime * 2.5f);

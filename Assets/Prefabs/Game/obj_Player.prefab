@@ -258,6 +258,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1a9a47e727855f458863155ced37187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pixelsPerUnit: 16
+  pixelSize: 4
+  targetObj: {fileID: 0}
+  moveObj: {fileID: 0}
 --- !u!124 &124092281445398190
 Behaviour:
   m_ObjectHideFlags: 1
