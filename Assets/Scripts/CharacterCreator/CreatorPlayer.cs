@@ -6,10 +6,23 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class CreatorPlayer : MonoBehaviour
 {
 	[SerializeField]
 	private PaletteSwap swapper;
+
+	private Animator animator;
+
+	private void Start()
+	{
+		animator = GetComponent<Animator>();
+	}
+
+	public void Hop()
+	{
+		animator.SetTrigger("Hop");
+	}
 
 	public void Save()
 	{

@@ -39,7 +39,7 @@ Shader "PurgeTheCityDX/RainbowBlend"
 			{
 				float2 uv : TEXCOORD0;
 				float4 vertex : SV_POSITION;
-				float2 screenPos : TEXCOORD1;
+				float4 screenPos : TEXCOORD1;
 				float4 grabPos : TEXCOORD2;
 			};
 
@@ -103,17 +103,14 @@ Shader "PurgeTheCityDX/RainbowBlend"
 				// Sample the previous render pass.
 				fixed4 oldPixels = tex2D(_BackgroundTexture, i.grabPos);
 
-				//float2 ps = i.screenPos.xy * _ScreenParams.xy / i.screenPos.w;
+				// Denormalise the screen position parameter.
+				float2 ps = i.screenPos.xy * _ScreenParams.xy / i.screenPos.w;
 
-				float param = _Time * 10.0f + i.screenPos.x + i.screenPos.y / 2.0f;
+				fixed param = (_Time * 10.0f + ps.x + ps.y) % 1;
 
-				float4 rainbow = fixed4(HUEtoRGB(param % 1.0f), oldPixels.a);
+				// Convert some function of time into a hue value, then to RGB.
+				float4 rainbow = fixed4(HUEtoRGB(param), oldPixels.a);
 				fixed4 result =  rainbow * _BlendAmount + oldPixels * (1 - _BlendAmount);
-
-				//result.a = 1.0f;
-
-
-				//result = fixed4(col.a, col.a, col.a, 1.0f);
 
 				return result;
 			}

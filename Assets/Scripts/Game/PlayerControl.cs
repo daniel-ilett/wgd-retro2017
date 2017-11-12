@@ -123,7 +123,8 @@ public class PlayerControl : MonoBehaviour
 			}
 
 			// Modify camera position.
-			targetPos = diff.normalized * 2.5f;
+			//targetPos = diff.normalized * 2.5f;
+			targetPos = transform.position;
 
 			// Modify red amount.
 			hitFalloff = Mathf.Lerp(hitFalloff, 0.0f, Time.deltaTime * 2.5f);

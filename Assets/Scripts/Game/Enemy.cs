@@ -9,6 +9,9 @@ public class Enemy : MonoBehaviour
 	[SerializeField]
 	private Material rainbowBlendMaterial;
 
+	[SerializeField]
+	private Ghost ghost;
+
 	private float moveSpeed = 2.5f;
 
 	private bool isSuper = false;
@@ -23,8 +26,8 @@ public class Enemy : MonoBehaviour
 		rigidbody = GetComponent<Rigidbody2D>();
 		renderer = GetComponent<SpriteRenderer>();
 
-		if((Random.value + Random.value) / 2.0f > 0.9f)
-		{
+		//if((Random.value + Random.value) / 2.0f > 0.9f)
+		//{
 			isSuper = true;
 
 			// Add a rainbow blend material to the materials list.
@@ -38,7 +41,7 @@ public class Enemy : MonoBehaviour
 			rainbowBlendMaterial.SetFloat("_BlendAmount", 0.5f);
 
 			renderer.materials = moreMaterials;
-		}
+		//}
 	}
 
 	public void Update()
@@ -68,5 +71,15 @@ public class Enemy : MonoBehaviour
 
 		rigidbody.velocity = diff.normalized * moveSpeed;
 		animator.SetBool("IsWalking?", rigidbody.velocity.magnitude > 1.0f);
+
+		if (Input.GetButtonDown("Fire1"))
+			Die();
+	}
+
+	private void Die()
+	{
+		Ghost gh = Instantiate(ghost, transform.position, ghost.transform.rotation);
+		gh.SetSprite(renderer.sprite);
+		Destroy(gameObject);
 	}
 }

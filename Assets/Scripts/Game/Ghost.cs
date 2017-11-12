@@ -17,20 +17,28 @@ public class Ghost : MonoBehaviour
 		renderer = GetComponent<SpriteRenderer>();
 		material = new Material(shader);
 		renderer.material = material;
+
+		Invoke("DestroyGhost", 1.51f);
 	}
 
 	private void Update()
 	{
-		transform.position += new Vector3(0.0f, Time.deltaTime, 0.0f);
+		transform.position += new Vector3(0.0f, Time.deltaTime * 2.5f, 0.0f);
+		float ghostScale = 1.0f + ghostTime;
+		transform.localScale = new Vector3(ghostScale, ghostScale, ghostScale);
 
 		material.SetFloat("_GhostTime", ghostTime);
-		material.SetFloat("_GhostFade", Mathf.Clamp(3.0f - ghostTime, 0.0f, 1.0f));
+		material.SetFloat("_GhostFade", Mathf.Clamp(1.5f - ghostTime, 0.0f, 1.0f));
 		ghostTime += Time.deltaTime;
+	}
+
+	private void DestroyGhost()
+	{
+		Destroy(gameObject);
 	}
 
 	public void SetSprite(Sprite sp)
 	{
 		renderer.sprite = sp;
-		material.SetTexture("_MainTex", sp.texture);
 	}
 }

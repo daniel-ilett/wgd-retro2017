@@ -5,7 +5,10 @@ using UnityEngine;
 public class CharCreator : MonoBehaviour
 {
 	[SerializeField]
-	private PaletteSwap player;
+	private PaletteSwap swapper;
+
+	[SerializeField]
+	private CreatorPlayer player;
 
 	private Dictionary<string, int> charMap;
 
@@ -26,6 +29,7 @@ public class CharCreator : MonoBehaviour
 
 	public void SelectColour(string part, ColourButton button)
 	{
-		player.SetColour(charMap[part], button.colour);
+		swapper.SetColour(charMap[part], button.colour);
+		player.Hop();
 	}
 }
