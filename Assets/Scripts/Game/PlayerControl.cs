@@ -133,8 +133,6 @@ public class PlayerControl : MonoBehaviour
 			hitFadeMaterial.SetFloat("_BlendAmount", hitFalloff);
 		}
 
-		Debug.Log(hitFalloff);
-
 		if (Input.GetButtonDown("Fire1"))
 			GetHit(1);
 	}
