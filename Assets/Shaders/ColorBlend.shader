@@ -62,7 +62,6 @@
 				fixed4 oldPixels = tex2D(_BackgroundTexture, i.grabPos);
 
 				return fixed4(_Color.rgb, oldPixels.a) * _BlendAmount + oldPixels * (1 - _BlendAmount);
-				//return oldPixels;
 			}
 			ENDCG
 		}

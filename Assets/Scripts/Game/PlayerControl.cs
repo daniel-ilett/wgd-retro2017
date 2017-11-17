@@ -20,6 +20,9 @@ public class PlayerControl : MonoBehaviour
 	private Ghost ghost;
 
 	[SerializeField]
+	private Bullet bullet;
+
+	[SerializeField]
 	private Material hitFadeMaterial;
 	private float hitFalloff = 0.0f;
 
@@ -43,6 +46,8 @@ public class PlayerControl : MonoBehaviour
 		animator = GetComponent<Animator>();
 		rigidbody = GetComponent<Rigidbody2D>();
 		renderer = GetComponent<SpriteRenderer>();
+
+		hitFadeMaterial = new Material(hitFadeMaterial);
 
 		// Add the red-fade material to the materials list.
 		Material[] materials = renderer.materials;
@@ -80,9 +85,6 @@ public class PlayerControl : MonoBehaviour
 
 	private void Update()
 	{
-		//cameraPos.localPosition = Vector3.Lerp(cameraPos.localPosition, 
-			//targetPos, Time.deltaTime * 5.0f);
-
 		if(!isDead)
 		{
 			// Modify player velocity.
@@ -122,19 +124,18 @@ public class PlayerControl : MonoBehaviour
 					animator.SetTrigger("Down");
 			}
 
-			// Modify camera position.
-			//targetPos = diff.normalized * 2.5f;
-			//targetPos = transform.position;
-
-			// Modify red amount.
-			hitFalloff = Mathf.Lerp(hitFalloff, 0.0f, Time.deltaTime * 2.5f);
-
-			//redMat.SetTexture("_MainTex", renderer.material.mainTexture);
-			hitFadeMaterial.SetFloat("_BlendAmount", hitFalloff);
+			// Fire a bullet.
+			if (Input.GetButtonDown("Fire1"))
+			{
+				Bullet newBullet = Instantiate(bullet, transform.position, Quaternion.identity);
+				newBullet.Fire(diff.normalized, BulletType.PLAYER);
+			}
 		}
 
-		if (Input.GetButtonDown("Fire1"))
-			GetHit(1);
+		// Modify red amount.
+		hitFalloff = Mathf.Lerp(hitFalloff, 0.0f, Time.deltaTime * 2.5f);
+
+		hitFadeMaterial.SetFloat("_BlendAmount", hitFalloff);
 	}
 
 	public void GetHit(int damage)

@@ -236,8 +236,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 142868075}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 683, y: 384, z: 0}
-  m_LocalScale: {x: 0.7114583, y: 0.7114583, z: 0.7114583}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1811341239}
   - {fileID: 905682346}
@@ -329,7 +329,7 @@ Prefab:
     - target: {fileID: 224473157717568432, guid: e4bc440550fbaf44dbffe5ea24028177,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: -373.76355
+      value: -373.5
       objectReference: {fileID: 0}
     - target: {fileID: 224473157717568432, guid: e4bc440550fbaf44dbffe5ea24028177,
         type: 2}
@@ -478,12 +478,12 @@ Prefab:
     - target: {fileID: 114589542952161874, guid: e4bc440550fbaf44dbffe5ea24028177,
         type: 2}
       propertyPath: colouredButtons.Array.data[2].colour.r
-      value: 0.44567466
+      value: 0.35121107
       objectReference: {fileID: 0}
     - target: {fileID: 114589542952161874, guid: e4bc440550fbaf44dbffe5ea24028177,
         type: 2}
       propertyPath: colouredButtons.Array.data[2].colour.g
-      value: 0.35121107
+      value: 0.784441
       objectReference: {fileID: 0}
     - target: {fileID: 114589542952161874, guid: e4bc440550fbaf44dbffe5ea24028177,
         type: 2}
@@ -538,7 +538,7 @@ Prefab:
     - target: {fileID: 114589542952161874, guid: e4bc440550fbaf44dbffe5ea24028177,
         type: 2}
       propertyPath: colouredButtons.Array.data[4].colour.b
-      value: 0.66572237
+      value: 0.5752163
       objectReference: {fileID: 0}
     - target: {fileID: 114589542952161874, guid: e4bc440550fbaf44dbffe5ea24028177,
         type: 2}
@@ -553,7 +553,7 @@ Prefab:
     - target: {fileID: 114589542952161874, guid: e4bc440550fbaf44dbffe5ea24028177,
         type: 2}
       propertyPath: colouredButtons.Array.data[5].colour.r
-      value: 0.24572882
+      value: 0.3656746
       objectReference: {fileID: 0}
     - target: {fileID: 114589542952161874, guid: e4bc440550fbaf44dbffe5ea24028177,
         type: 2}
@@ -563,7 +563,7 @@ Prefab:
     - target: {fileID: 114589542952161874, guid: e4bc440550fbaf44dbffe5ea24028177,
         type: 2}
       propertyPath: colouredButtons.Array.data[5].colour.b
-      value: 0.3314044
+      value: 0.24572882
       objectReference: {fileID: 0}
     - target: {fileID: 114589542952161874, guid: e4bc440550fbaf44dbffe5ea24028177,
         type: 2}
@@ -1203,7 +1203,7 @@ Prefab:
     - target: {fileID: 224473157717568432, guid: e4bc440550fbaf44dbffe5ea24028177,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: -428.26355
+      value: -428
       objectReference: {fileID: 0}
     - target: {fileID: 224473157717568432, guid: e4bc440550fbaf44dbffe5ea24028177,
         type: 2}
@@ -1352,12 +1352,12 @@ Prefab:
     - target: {fileID: 114589542952161874, guid: e4bc440550fbaf44dbffe5ea24028177,
         type: 2}
       propertyPath: colouredButtons.Array.data[2].colour.r
-      value: 0.44567466
+      value: 0.3529412
       objectReference: {fileID: 0}
     - target: {fileID: 114589542952161874, guid: e4bc440550fbaf44dbffe5ea24028177,
         type: 2}
       propertyPath: colouredButtons.Array.data[2].colour.g
-      value: 0.35121107
+      value: 0.78431374
       objectReference: {fileID: 0}
     - target: {fileID: 114589542952161874, guid: e4bc440550fbaf44dbffe5ea24028177,
         type: 2}
@@ -1584,7 +1584,7 @@ Prefab:
     - target: {fileID: 224473157717568432, guid: e4bc440550fbaf44dbffe5ea24028177,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: -282.93018
+      value: -282.66663
       objectReference: {fileID: 0}
     - target: {fileID: 224473157717568432, guid: e4bc440550fbaf44dbffe5ea24028177,
         type: 2}
