@@ -50,6 +50,7 @@
 				return o;
 			}
 
+			uniform sampler2D _MainTex;
 			uniform float4 _Color;
 			uniform float _BlendAmount;
 
@@ -60,8 +61,11 @@
 			{
 				// Sample the previous render pass.
 				fixed4 oldPixels = tex2D(_BackgroundTexture, i.grabPos);
+				fixed alpha = tex2D(_MainTex, i.uv).a;
 
-				return fixed4(_Color.rgb, oldPixels.a) * _BlendAmount + oldPixels * (1 - _BlendAmount);
+				oldPixels.a = alpha;
+
+				return fixed4(_Color.rgb, alpha) * _BlendAmount + oldPixels * (1 - _BlendAmount);
 			}
 			ENDCG
 		}

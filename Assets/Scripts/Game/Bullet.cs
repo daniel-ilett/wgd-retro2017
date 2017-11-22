@@ -25,6 +25,8 @@ public class Bullet : MonoBehaviour
 
 	private void OnCollisionEnter2D(Collision2D hit)
 	{
+		Vector2 diff = hit.collider.transform.position - hit.otherCollider.transform.position;
+
 		if (hit.collider.gameObject.tag == "Player")
 		{
 			hit.collider.GetComponent<PlayerControl>().GetHit(1);
@@ -32,8 +34,13 @@ public class Bullet : MonoBehaviour
 		}
 		else if (hit.collider.gameObject.tag == "Enemy")
 		{
-			hit.collider.GetComponent<Enemy>().GetHit(1);
+			hit.collider.GetComponent<Enemy>().GetHit(1, diff);
 			Destroy(gameObject);
+		}
+		else if(hit.collider.gameObject.tag == "Destructible")
+		{
+			DestructibleScenery sc = hit.collider.GetComponent<DestructibleScenery>();
+			sc.GetHit(diff);
 		}
 		else if (reflectionCount-- <= 0)
 		{

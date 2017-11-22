@@ -247,11 +247,16 @@ Prefab:
     - target: {fileID: 114434685907535954, guid: 2127f883fcd3332439321e117a51a3d5,
         type: 2}
       propertyPath: m_Text
-      value: It's been two and a half years since the residents of the city collectively
-        woke up on the wrong side of the bed, prompting you to go on a hug-packed
-        rampage to calm everyone down. Now, it's 2017 and everyone on the planet hates
-        each other again. Can you use the power of love and friendship* to overcome
-        the hate?
+      value: 'It''s becoming increasingly clear that 9am lectures were a terrifying
+        mistake. Not only does nobody listen in them, but they''re also turning students
+        at the University of Warwick into sleep-deprived zombies*. On top of this,
+        it''s the middle of term and you''re already sick of being handed leaflets
+        when passing the Library. You have to make a stand.
+
+
+        Armed with giant balls of pure caffeine, you step off the U1 and head towards
+        the Warwick SU building. If being smacked in the mouth gently with a stimulant
+        doesn''t cheer people up, nothing will.'
       objectReference: {fileID: 0}
     - target: {fileID: 114434685907535954, guid: 2127f883fcd3332439321e117a51a3d5,
         type: 2}
@@ -271,6 +276,11 @@ Prefab:
     - target: {fileID: 114434685907535954, guid: 2127f883fcd3332439321e117a51a3d5,
         type: 2}
       propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114434685907535954, guid: 2127f883fcd3332439321e117a51a3d5,
+        type: 2}
+      propertyPath: m_FontData.m_BestFit
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -543,7 +553,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 887037999}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalPosition: {x: 683, y: 384, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1134447585}
@@ -653,6 +663,11 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114959587824621554, guid: 3c3bd97e148e16f4282e8dcfd01e335c,
+        type: 2}
+      propertyPath: m_Text
+      value: '*This definitely does not include me.'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3c3bd97e148e16f4282e8dcfd01e335c, type: 2}

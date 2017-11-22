@@ -53,6 +53,7 @@ Shader "PurgeTheCityDX/RainbowBlend"
 				return o;
 			}
 			
+			uniform sampler2D _MainTex;
 			uniform float _BlendAmount;
 
 			// The portion of the image already drawn.
@@ -103,13 +104,15 @@ Shader "PurgeTheCityDX/RainbowBlend"
 				// Sample the previous render pass.
 				fixed4 oldPixels = tex2D(_BackgroundTexture, i.grabPos);
 
+				fixed alpha = tex2D(_MainTex, i.uv).a;
+
 				// Denormalise the screen position parameter.
 				float2 ps = i.screenPos.xy * _ScreenParams.xy / i.screenPos.w;
 
 				fixed param = (_Time * 10.0f + ps.x + ps.y) % 1;
 
 				// Convert some function of time into a hue value, then to RGB.
-				float4 rainbow = fixed4(HUEtoRGB(param), oldPixels.a);
+				float4 rainbow = fixed4(HUEtoRGB(param), alpha);
 				fixed4 result =  rainbow * _BlendAmount + oldPixels * (1 - _BlendAmount);
 
 				return result;

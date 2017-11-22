@@ -6,16 +6,14 @@ using UnityEngine;
 [RequireComponent(typeof(PaletteSwap))]
 public class Enemy : MonoBehaviour
 {
+	// Colour properties.
 	[SerializeField]
 	private Material rainbowBlendMaterial;
-
 	[SerializeField]
 	private Material hitFadeMaterial;
 	private float hitFalloff = 0.0f;
 
-	[SerializeField]
-	private Ghost ghost;
-
+	// Customisation properties.
 	[SerializeField]
 	private Color[] skinColors;
 	[SerializeField]
@@ -23,14 +21,16 @@ public class Enemy : MonoBehaviour
 	[SerializeField]
 	private Color[] clothingColors;
 
-	private bool isDead = false;
-
-	private float moveSpeed = 2.5f;
-
-	private bool isSuper = false;
-
+	// Health and death.
+	[SerializeField]
+	private Ghost ghost;
 	private int health = 2;
 
+	// Other properties.
+	private float moveSpeed = 2.5f;
+	private bool isSuper = false;
+
+	// Component references.
 	private PaletteSwap swapper;
 	private Animator animator;
 	private new Rigidbody2D rigidbody;
@@ -64,8 +64,8 @@ public class Enemy : MonoBehaviour
 		renderer.materials = moreMaterials;
 
 		// Add a rainbow blend material to the materials list.
-		//if ((Random.value + Random.value) / 2.0f > 0.9f)
-		//{
+		if ((Random.value + Random.value) / 2.0f > 0.9f)
+		{
 			isSuper = true;
 			health = 5;
 
@@ -79,12 +79,12 @@ public class Enemy : MonoBehaviour
 			rainbowBlendMaterial.SetFloat("_BlendAmount", 0.5f);
 
 			renderer.materials = moreMaterials;
-		//}
+		}
 	}
 
 	public void Update()
 	{
-		if(!isDead)
+		if(health > 0)
 		{
 			Vector2 diff = PlayerControl.player.transform.position - transform.position;
 
@@ -109,18 +109,19 @@ public class Enemy : MonoBehaviour
 					animator.SetTrigger("Down");
 			}
 
-			rigidbody.velocity = diff.normalized * moveSpeed;
+			rigidbody.velocity = rigidbody.velocity / 2.0f + diff.normalized * moveSpeed / 2.0f;
 			animator.SetBool("IsWalking?", rigidbody.velocity.magnitude > 1.0f);
 		}
 
 		// Modify red amount.
-		//hitFalloff = Mathf.Lerp(hitFalloff, 0.0f, Time.deltaTime * 2.5f);
+		hitFalloff = Mathf.Lerp(hitFalloff, 0.0f, Time.deltaTime * 2.5f);
 		
 		hitFadeMaterial.SetFloat("_BlendAmount", hitFalloff);
 	}
 
-	public void GetHit(int damage)
+	public void GetHit(int damage, Vector2 direction)
 	{
+		rigidbody.AddForce(direction * 25.0f);
 		health -= damage;
 		hitFalloff = 1.0f;
 
@@ -128,10 +129,9 @@ public class Enemy : MonoBehaviour
 			Die();
 	}
 
+	// Make the player fly off into the distance and spawn a ghost.
 	private void Die()
 	{
-		isDead = true;
-
 		Ghost gh = Instantiate(ghost, transform.position, ghost.transform.rotation);
 		gh.SetSprite(renderer.sprite);
 
@@ -139,11 +139,12 @@ public class Enemy : MonoBehaviour
 		Destroy(gameObject.GetComponent<Collider2D>());
 
 		rigidbody.constraints = RigidbodyConstraints2D.None;
-		rigidbody.AddTorque(720.0f);
+		rigidbody.AddTorque(Random.value > 0.5f ? 720.0f : -720.0f);
 
 		StartCoroutine(DestroyEnemy());
 	}
 
+	// After 1s, destroy the enemy object entirely.
 	private IEnumerator DestroyEnemy()
 	{
 		WaitForEndOfFrame wait = new WaitForEndOfFrame();
