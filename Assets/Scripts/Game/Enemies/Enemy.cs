@@ -35,9 +35,16 @@ public class Enemy : MonoBehaviour
 
 	private BulletRing br;
 
+	private float attackTime = 0.0f;
+	private float rechargeTime = 2.5f;
+
 	// Other properties.
 	private float moveSpeed = 2.5f;
 	private bool isSuper = false;
+
+	private static int difficulty;
+
+	private static int enemyCount;
 
 	// Component references.
 	private PaletteSwap swapper;
@@ -47,6 +54,8 @@ public class Enemy : MonoBehaviour
 
 	private void Start()
 	{
+		++enemyCount;
+
 		swapper = GetComponent<PaletteSwap>();
 		animator = GetComponent<Animator>();
 		rigidbody = GetComponent<Rigidbody2D>();
@@ -72,11 +81,28 @@ public class Enemy : MonoBehaviour
 
 		renderer.materials = moreMaterials;
 
+		attackTime = Random.value * 5.0f;
+	}
+
+	public void Spawn(int difficulty)
+	{
+		Enemy.difficulty = difficulty;
+		Invoke("CheckRainbow", Time.deltaTime * 2.0f);
+	}
+
+	private void CheckRainbow()
+	{
 		// Add a rainbow blend material to the materials list.
-		if ((Random.value + Random.value) / 2.0f > 0.8f)
+		if ((Random.value + Random.value) / 2.0f > 0.9f * (12.0f - difficulty / 3.0f) / 12.0f)
 		{
 			isSuper = true;
 			health = 5;
+			moveSpeed = 5.0f;
+
+			renderer = GetComponent<SpriteRenderer>();
+
+			Material[] materials = renderer.materials;
+			Material[] moreMaterials = new Material[materials.Length + 1];
 
 			materials = renderer.materials;
 			moreMaterials = new Material[materials.Length + 1];
@@ -97,7 +123,7 @@ public class Enemy : MonoBehaviour
 
 	public void Update()
 	{
-		if(health > 0)
+		if (health > 0)
 		{
 			Vector2 diff = PlayerControl.player.transform.position - transform.position;
 
@@ -124,11 +150,20 @@ public class Enemy : MonoBehaviour
 
 			rigidbody.velocity = rigidbody.velocity / 2.0f + diff.normalized * moveSpeed / 2.0f;
 			animator.SetBool("IsWalking?", rigidbody.velocity.magnitude > 1.0f);
+
+			// Fire a bullet.
+			if (Time.time > attackTime)
+			{
+				Bullet newBullet = Instantiate(bullet, transform.position, Quaternion.identity);
+				newBullet.Fire(diff.normalized, BulletType.ENEMY, 5.0f);
+
+				attackTime = Time.time + rechargeTime * (1.0f + Random.value * 10.0f / difficulty);
+			}
 		}
 
 		// Modify red amount.
 		hitFalloff = Mathf.Lerp(hitFalloff, 0.0f, Time.deltaTime * 2.5f);
-		
+
 		hitFadeMaterial.SetFloat("_BlendAmount", hitFalloff);
 	}
 
@@ -158,6 +193,8 @@ public class Enemy : MonoBehaviour
 		ScoreLabel.sc.AddScore(isSuper ? 100 : 25);
 		CameraController.cam.ScreenShake(0.15f, isSuper ? 3 : 2);
 
+		--enemyCount;
+
 		StartCoroutine(DestroyEnemy());
 	}
 
@@ -166,7 +203,7 @@ public class Enemy : MonoBehaviour
 	{
 		WaitForEndOfFrame wait = new WaitForEndOfFrame();
 
-		for(float i = 0; i < 1.0f; i += Time.deltaTime)
+		for (float i = 0; i < 1.0f; i += Time.deltaTime)
 		{
 			Color col = renderer.color;
 			col.a = 1.0f - i;
@@ -175,5 +212,15 @@ public class Enemy : MonoBehaviour
 			yield return wait;
 		}
 		Destroy(gameObject);
+	}
+
+	public static int GetEnemyCount()
+	{
+		return enemyCount;
+	}
+
+	public static int GetDifficulty()
+	{
+		return difficulty;
 	}
 }

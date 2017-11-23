@@ -22,6 +22,9 @@ public class PlayerControl : MonoBehaviour
 	[SerializeField]
 	private Bullet bullet;
 
+	private float attackTime = 0.0f;
+	private float rechargeTime = 0.25f;
+
 	[SerializeField]
 	private Material hitFadeMaterial;
 	private float hitFalloff = 0.0f;
@@ -127,10 +130,13 @@ public class PlayerControl : MonoBehaviour
 			}
 
 			// Fire a bullet.
-			if (Input.GetButtonDown("Fire1"))
+			if (Input.GetButton("Fire1") && Time.time > attackTime)
 			{
 				Bullet newBullet = Instantiate(bullet, transform.position, Quaternion.identity);
-				newBullet.Fire(diff.normalized, BulletType.PLAYER);
+				newBullet.Fire(diff.normalized, BulletType.PLAYER, 10.0f);
+
+				attackTime = Time.time + rechargeTime;
+				ScoreLabel.sc.AddScore(-Enemy.GetDifficulty());
 			}
 		}
 

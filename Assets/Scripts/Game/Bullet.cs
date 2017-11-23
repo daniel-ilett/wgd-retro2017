@@ -24,11 +24,11 @@ public class Bullet : MonoBehaviour
 		gameObject.layer = (type == BulletType.PLAYER) ? 11 : 12;
 	}
 
-	public void Fire(Vector3 direction, BulletType type)
+	public void Fire(Vector3 direction, BulletType type, float strength)
 	{
 		this.type = type;
 		rigidbody.isKinematic = false;
-		rigidbody.AddForce(direction * 10.0f, ForceMode2D.Impulse);
+		rigidbody.AddForce(direction * strength, ForceMode2D.Impulse);
 
 		SetType(type);
 		Invoke("Die", 5.0f);
@@ -42,7 +42,7 @@ public class Bullet : MonoBehaviour
 		switch (hit.collider.gameObject.tag)
 		{
 			case "Player":
-				hit.collider.GetComponent<PlayerControl>().GetHit(1);
+				hit.collider.GetComponent<PlayerControl>().GetHit(10);
 				Die();
 				break;
 			case "Enemy":
