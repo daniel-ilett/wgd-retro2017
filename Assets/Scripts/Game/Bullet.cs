@@ -36,7 +36,6 @@ public class Bullet : MonoBehaviour
 
 	private void OnCollisionEnter2D(Collision2D hit)
 	{
-		Debug.Log(hit.collider.gameObject, hit.collider.gameObject);
 		Vector2 diff = hit.collider.transform.position - hit.otherCollider.transform.position;
 
 		switch (hit.collider.gameObject.tag)

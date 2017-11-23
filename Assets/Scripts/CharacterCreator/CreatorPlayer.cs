@@ -37,6 +37,8 @@ public class CreatorPlayer : MonoBehaviour
 		FileStream file = File.Create(Application.persistentDataPath + "/charData.dat");
 		bf.Serialize(file, sColours);
 		file.Close();
+
+		Debug.Log("Saved");
 	}
 }
 

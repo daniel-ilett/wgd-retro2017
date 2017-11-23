@@ -14,9 +14,6 @@ public class PlayerControl : MonoBehaviour
 	private PaletteSwap swapper;
 
 	[SerializeField]
-	private Transform cameraPos;
-
-	[SerializeField]
 	private Ghost ghost;
 
 	[SerializeField]
@@ -50,6 +47,9 @@ public class PlayerControl : MonoBehaviour
 		rigidbody = GetComponent<Rigidbody2D>();
 		renderer = GetComponent<SpriteRenderer>();
 
+		// Load colours.
+		Load();
+
 		hitFadeMaterial = new Material(hitFadeMaterial);
 
 		// Add the red-fade material to the materials list.
@@ -62,9 +62,6 @@ public class PlayerControl : MonoBehaviour
 		moreMaterials[materials.Length] = hitFadeMaterial;
 
 		renderer.materials = moreMaterials;
-
-		// Load colours.
-		Load();
 
 		LifeLabel.lf.SetLife(health);
 	}
@@ -84,7 +81,8 @@ public class PlayerControl : MonoBehaviour
 			for (int i = 0; i < sColours.Length; ++i)
 				colours[i] = new Color(sColours[i].r, sColours[i].g, sColours[i].b, sColours[i].a);
 
-			swapper.SetColours(colours);
+			for(int i = 0; i < colours.Length; ++i)
+				swapper.SetColour(i, colours[i]);
 		}
 	}
 
@@ -151,6 +149,9 @@ public class PlayerControl : MonoBehaviour
 		health -= damage;
 		hitFalloff = 1.0f;
 		LifeLabel.lf.SetLife(health);
+
+		if (health <= 0)
+			Die();
 	}
 
 	private void Die()
@@ -160,7 +161,6 @@ public class PlayerControl : MonoBehaviour
 		Ghost ghostClone = Instantiate(ghost, transform.position, Quaternion.identity);
 		ghostClone.SetSprite(renderer.sprite);
 
-		cameraPos.SetParent(null);
 		Destroy(gameObject);
 	}
 }

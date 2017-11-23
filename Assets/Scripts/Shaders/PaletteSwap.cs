@@ -40,6 +40,7 @@ public class PaletteSwap : MonoBehaviour
 
 	public void SetColours(Color[] colours)
 	{
+		Debug.Log(colours.Length);
 		this.colours = colours;
 
 		SwapColours();

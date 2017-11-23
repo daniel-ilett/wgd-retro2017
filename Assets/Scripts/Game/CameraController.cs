@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Camera))]
 public class CameraController : MonoBehaviour
@@ -35,10 +37,15 @@ public class CameraController : MonoBehaviour
 
 	private void Update()
 	{
-		Vector3 desiredPos = targetObj.position;
-		desiredPos.z = -10.0f;
+		if(targetObj != null)
+		{
+			Vector3 desiredPos = targetObj.position;
+			desiredPos.z = -10.0f;
 
-		moveObj.velocity = (desiredPos - moveObj.transform.position) * 5.0f;
+			moveObj.velocity = (desiredPos - moveObj.transform.position) * 5.0f;
+		}
+		else if(Input.GetButtonDown("Cancel"))
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 
 	private void LateUpdate()
