@@ -63,7 +63,7 @@
 
 				float3x4 scanlineMap = float3x4(wh, wh, bl);
 
-				fixed4 returnVal =  colormap[(uint)ps.x % 3] * scanlineMap[(uint)ps.y % 3];
+				fixed4 returnVal =  colormap[(int)ps.x % 3] * scanlineMap[(int)ps.y % 3];
 
 				returnVal += (_Brightness / 255);
 

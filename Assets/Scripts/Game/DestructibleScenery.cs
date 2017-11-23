@@ -6,8 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class DestructibleScenery : MonoBehaviour
 {
-	private bool isHit = false;
-
 	private new SpriteRenderer renderer;
 	private new Rigidbody2D rigidbody;
 
@@ -21,17 +19,11 @@ public class DestructibleScenery : MonoBehaviour
 
 	public void GetHit(Vector2 direction)
 	{
-		if(!isHit)
-		{
-			isHit = true;
+		Destroy(gameObject.GetComponent<Collider2D>());
+		rigidbody.isKinematic = false;
 
-			rigidbody.isKinematic = false;
-
-			rigidbody.AddForce(direction * 250.0f);
-			rigidbody.AddTorque(Random.value > 0.5f ? 720.0f : -720.0f);
-
-			Destroy(gameObject.GetComponent<Collider2D>());
-		}
+		rigidbody.AddForce(direction * 250.0f);
+		rigidbody.AddTorque(Random.value > 0.5f ? 720.0f : -720.0f);
 
 		StartCoroutine(DestroyScenery());
 	}
@@ -40,6 +32,8 @@ public class DestructibleScenery : MonoBehaviour
 	private IEnumerator DestroyScenery()
 	{
 		WaitForEndOfFrame wait = new WaitForEndOfFrame();
+
+		ScoreLabel.sc.AddScore(5);
 
 		for (float i = 0; i < 1.0f; i += Time.deltaTime)
 		{

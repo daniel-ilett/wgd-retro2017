@@ -17,6 +17,10 @@ public class CameraController : MonoBehaviour
 	[SerializeField]
 	private Rigidbody2D moveObj;
 
+	private Vector3 shakeOffset;
+	private Coroutine shake;
+	private int shakeStrength;
+
 	private new Camera camera;
 
 	public static CameraController cam;
@@ -41,7 +45,7 @@ public class CameraController : MonoBehaviour
 	{
 		Vector3 pos = moveObj.transform.position;
 
-		float snapThreshold = 1.0f / (pixelsPerUnit * pixelSize);
+		float snapThreshold = 1.0f / (pixelsPerUnit);
 		float halfThreshold = snapThreshold / 2.0f;
 
 		float x = pos.x % snapThreshold;
@@ -50,11 +54,42 @@ public class CameraController : MonoBehaviour
 		pos.x = pos.x - x + ((x > halfThreshold) ? snapThreshold : 0.0f);
 		pos.y = pos.y - y + ((y > halfThreshold) ? snapThreshold : 0.0f);
 
-		transform.position = pos;
+		float offset = 0.5f / pixelsPerUnit;
+		transform.position = pos + shakeOffset + new Vector3(offset, offset, 0.0f);
 	}
 
 	public Camera GetCamera()
 	{
 		return camera;
+	}
+
+	public void ScreenShake(float duration, int strength)
+	{
+		if(shake != null)
+		{
+			if (strength < shakeStrength)
+				return;
+
+			StopCoroutine(shake);
+		}
+
+		StartCoroutine(Shake(duration, strength));
+	}
+
+	private IEnumerator Shake(float duration, int strength)
+	{ 
+		WaitForEndOfFrame wait = new WaitForEndOfFrame();
+		float snapThreshold = 1.0f / (pixelsPerUnit);
+
+		for (float i = 0; i < duration; i += Time.deltaTime)
+		{
+			float xAdd = Random.Range(-strength, strength) * snapThreshold;
+			float yAdd = Random.Range(-strength, strength) * snapThreshold;
+
+			shakeOffset = new Vector3(xAdd, yAdd, 0.0f);
+			yield return wait;
+		}
+
+		shakeOffset = Vector3.zero;
 	}
 }

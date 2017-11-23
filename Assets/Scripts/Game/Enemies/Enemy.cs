@@ -24,7 +24,16 @@ public class Enemy : MonoBehaviour
 	// Health and death.
 	[SerializeField]
 	private Ghost ghost;
-	private int health = 2;
+	private int health = 1;
+
+	//Combat.
+	[SerializeField]
+	private Bullet bullet;
+
+	[SerializeField]
+	private BulletRing ring;
+
+	private BulletRing br;
 
 	// Other properties.
 	private float moveSpeed = 2.5f;
@@ -64,7 +73,7 @@ public class Enemy : MonoBehaviour
 		renderer.materials = moreMaterials;
 
 		// Add a rainbow blend material to the materials list.
-		if ((Random.value + Random.value) / 2.0f > 0.9f)
+		if ((Random.value + Random.value) / 2.0f > 0.8f)
 		{
 			isSuper = true;
 			health = 5;
@@ -79,6 +88,10 @@ public class Enemy : MonoBehaviour
 			rainbowBlendMaterial.SetFloat("_BlendAmount", 0.5f);
 
 			renderer.materials = moreMaterials;
+
+			br = Instantiate(ring, transform);
+			br.Spawn(bullet, BulletType.ENEMY, Random.Range(1, 7));
+			br.gameObject.layer = 12;
 		}
 	}
 
@@ -141,6 +154,10 @@ public class Enemy : MonoBehaviour
 		rigidbody.constraints = RigidbodyConstraints2D.None;
 		rigidbody.AddTorque(Random.value > 0.5f ? 720.0f : -720.0f);
 
+		GhostLabel.gh.AddGhost();
+		ScoreLabel.sc.AddScore(isSuper ? 100 : 25);
+		CameraController.cam.ScreenShake(0.15f, isSuper ? 3 : 2);
+
 		StartCoroutine(DestroyEnemy());
 	}
 
@@ -157,7 +174,6 @@ public class Enemy : MonoBehaviour
 
 			yield return wait;
 		}
-
 		Destroy(gameObject);
 	}
 }

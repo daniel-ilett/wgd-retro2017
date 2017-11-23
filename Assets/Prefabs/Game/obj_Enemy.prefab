@@ -72,7 +72,7 @@ CircleCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1905074699273978}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -93,7 +93,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.125}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -104,7 +104,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.5}
+  m_Size: {x: 0.5, y: 1}
   m_EdgeRadius: 0
 --- !u!95 &95750773287847452
 Animator:
@@ -137,7 +137,6 @@ MonoBehaviour:
   rainbowBlendMaterial: {fileID: 2100000, guid: ee2cc6e4523ce0d4b8b662bdc6857912,
     type: 2}
   hitFadeMaterial: {fileID: 2100000, guid: dfded2dec943d184c99e7ad0ee779a00, type: 2}
-  ghost: {fileID: 114942419506177054, guid: ba4ff3ea70f2d2f41acc41d4ae099704, type: 2}
   skinColors:
   - {r: 0.9411765, g: 0.8352941, b: 0.74509805, a: 1}
   - {r: 1, g: 0.8627451, b: 0.69803923, a: 1}
@@ -171,6 +170,9 @@ MonoBehaviour:
   - {r: 0.972549, g: 0.80784315, b: 0.2784314, a: 1}
   - {r: 0.8745098, g: 0.45882353, b: 0.23921569, a: 1}
   - {r: 0.52156866, g: 0.52156866, b: 0.52156866, a: 1}
+  ghost: {fileID: 114942419506177054, guid: ba4ff3ea70f2d2f41acc41d4ae099704, type: 2}
+  bullet: {fileID: 114940246380332300, guid: fa3b1aa5d00341c47aeef3c0144cd43f, type: 2}
+  ring: {fileID: 114290018470088236, guid: 7bdcc2994ec3a6f49b5de0fa435f4089, type: 2}
 --- !u!114 &114992258940126192
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -223,8 +225,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1158840651
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 187be8852dec2d84dbc1a66c544583c3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

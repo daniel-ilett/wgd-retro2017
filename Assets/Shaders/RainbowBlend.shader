@@ -15,7 +15,7 @@ Shader "PurgeTheCityDX/RainbowBlend"
 		// this render pass.
 		GrabPass
 		{
-			"_BackgroundTexture"
+			"_BackgroundTextureRB"
 		}
 
 		ZWrite Off
@@ -57,7 +57,7 @@ Shader "PurgeTheCityDX/RainbowBlend"
 			uniform float _BlendAmount;
 
 			// The portion of the image already drawn.
-			uniform sampler2D _BackgroundTexture;
+			uniform sampler2D _BackgroundTextureRB;
 
 			// Following functions define RGB<->HSV colour space transformations.
 			float Epsilon = 1e-10;
@@ -102,9 +102,7 @@ Shader "PurgeTheCityDX/RainbowBlend"
 			fixed4 frag (v2f i) : SV_Target
 			{
 				// Sample the previous render pass.
-				fixed4 oldPixels = tex2D(_BackgroundTexture, i.grabPos);
-
-				fixed alpha = tex2D(_MainTex, i.uv).a;
+				fixed4 oldPixels = tex2D(_BackgroundTextureRB, i.grabPos);
 
 				// Denormalise the screen position parameter.
 				float2 ps = i.screenPos.xy * _ScreenParams.xy / i.screenPos.w;
@@ -112,8 +110,11 @@ Shader "PurgeTheCityDX/RainbowBlend"
 				fixed param = (_Time * 10.0f + ps.x + ps.y) % 1;
 
 				// Convert some function of time into a hue value, then to RGB.
-				float4 rainbow = fixed4(HUEtoRGB(param), alpha);
+				float4 rainbow = fixed4(HUEtoRGB(param), oldPixels.a);
 				fixed4 result =  rainbow * _BlendAmount + oldPixels * (1 - _BlendAmount);
+
+				fixed alpha = tex2D(_MainTex, i.uv).a;
+				result.a = alpha;
 
 				return result;
 			}

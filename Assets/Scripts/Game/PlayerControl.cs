@@ -62,6 +62,8 @@ public class PlayerControl : MonoBehaviour
 
 		// Load colours.
 		Load();
+
+		LifeLabel.lf.SetLife(health);
 	}
 
 	private void Load()
@@ -142,6 +144,7 @@ public class PlayerControl : MonoBehaviour
 	{
 		health -= damage;
 		hitFalloff = 1.0f;
+		LifeLabel.lf.SetLife(health);
 	}
 
 	private void Die()

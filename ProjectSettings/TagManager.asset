@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Destructible
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -48,4 +49,7 @@ TagManager:
     locked: 0
   - name: Entity
     uniqueID: 1158840651
+    locked: 0
+  - name: AbovePlayer
+    uniqueID: 1533226151
     locked: 0
